@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from . import NodeInfo
+import asyncio
+import websockets
 # Create your views here.
 
+
 def getNodeInfo(request):
-    cpuContext = NodeInfo.getCPU()
-    memContext = NodeInfo.getMem()
-    diskContext = NodeInfo.getDisk("/")
-    context = dict(cpuContext,**memContext)
-    context = dict(context,**diskContext)
+    context = NodeInfo.message()
     return render(request,'getNode/NodeInfo.html',context)
+
+
